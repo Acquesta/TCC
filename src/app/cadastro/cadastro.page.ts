@@ -32,10 +32,10 @@ export class CadastroPage implements OnInit {
       createUserWithEmailAndPassword(auth, email, senha )
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log('Cadastrou', user)
+        console.log('Cadastrou', user.uid)
         this.router.navigate(['../cadastroprod'])
 
-        this.addUsuario(this.nome, this.telefone, this.nomeEmpresa)
+        this.addUsuario(this.nome, this.telefone, this.nomeEmpresa, user.uid)
       })
       .catch(async (error) =>{
         const errorCode = error.code;
@@ -52,12 +52,12 @@ export class CadastroPage implements OnInit {
     }
   }
 
-  async addUsuario(nome:any, telefone:any, nomeEmpresa:any){
+  async addUsuario(nome:any, telefone:any, nomeEmpresa:any, uid:any){
     try {
-      const docRef = await addDoc(collection(db, "users"), {
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815
+      const docRef = await addDoc(collection(db, uid), {
+        nome: nome,
+        nomeEmpresa:nomeEmpresa,
+        numero: telefone
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

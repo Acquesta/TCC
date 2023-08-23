@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import auth from 'src/config/firebasedb';
 
 @Component({
   selector: 'app-inicio',
@@ -11,5 +12,11 @@ export class InicioPage implements OnInit {
 
   ngOnInit() {
   }
+
+  nome: any;
+
+  user = auth.currentUser;
+
+  
 
 }

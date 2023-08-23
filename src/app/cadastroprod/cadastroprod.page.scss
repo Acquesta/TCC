@@ -43,6 +43,15 @@ input {
 }
 
 
+#error {
+  border: red 2px solid;
+}
+
+#error::placeholder {
+  color: red;
+}
+
+
 input:focus {
   outline: none;
 }

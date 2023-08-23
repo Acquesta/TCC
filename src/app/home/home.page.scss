@@ -79,6 +79,13 @@ a {
 
 }
 
+#error {
+  border: red 2px solid;
+}
+
+#error::placeholder {
+  color: red;
+}
 
 // // waves
 

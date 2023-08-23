@@ -126,6 +126,16 @@ h1 {
   bottom: 15px;
 }
 
+
+#error {
+  border: red 2px solid;
+}
+
+#error::placeholder {
+  color: red;
+}
+
+
 @keyframes animate {
   0% {
       background-position-x: 0;

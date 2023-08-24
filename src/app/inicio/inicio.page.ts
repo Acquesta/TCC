@@ -29,15 +29,12 @@ export class InicioPage implements OnInit {
 
           const db = doc.data()
 
-          this.nome = db['numero']
+          this.nome = db['nome']
 
           console.log(this.nome)
         });
 
-      } else {
-        // User is signed out
-        // ...
-      }
+      } 
     });
   }
 }

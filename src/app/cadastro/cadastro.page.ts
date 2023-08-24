@@ -32,7 +32,7 @@ export class CadastroPage implements OnInit {
       createUserWithEmailAndPassword(auth, email, senha )
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log('Cadastrou', user.uid)
+        console.log('O id do usuario é: ', user.uid)
         this.router.navigate(['../cadastroprod'])
 
         this.addUsuario(this.nome, this.telefone, this.nomeEmpresa, user.uid)

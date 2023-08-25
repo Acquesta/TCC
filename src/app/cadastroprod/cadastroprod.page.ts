@@ -46,7 +46,7 @@ export class CadastroprodPage implements OnInit {
 
     try {
       const docRef = addDoc(
-        collection(db, this.uid, "produtos", nome),
+        collection(db, this.uid, "produtos", 'produtos'),
         produto
       );
       console.log("Produto cadastrado");
@@ -56,18 +56,10 @@ export class CadastroprodPage implements OnInit {
   }
 
   async produtos(){
-    const querySnapshot = await getDoc(doc(db, this.uid, 'produtos' ));
-    // const ala = await getDocFromCache(querySnapshot);
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id);
-
-    //   const produtos = doc.data()
-      
-    // });
-    
-    console.log(querySnapshot.data());
-    
+    const querySnapshot = await getDocs(collection(db, this.uid, 'produtos', 'produtos' ));
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+    });    
 
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { db } from '../../config/firebasedb';
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc } from "firebase/firestore";
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -51,5 +51,17 @@ export class CadastroprodPage implements OnInit {
 
 
   }
+
+  async produtos(){
+
+    const produtos = await getDocs(collection(db, this.uid));
+    produtos.forEach((doc) => {
+      console.log(doc)
+    })
+
+  }
+    
+
+  
 
 }

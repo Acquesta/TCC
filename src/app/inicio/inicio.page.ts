@@ -3,6 +3,7 @@ import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "src/config/firebasedb";
+import { userLogado } from "src/config/user";
 
 @Component({
   selector: "app-inicio",
@@ -10,15 +11,16 @@ import { db } from "src/config/firebasedb";
   styleUrls: ["./inicio.page.scss"],
 })
 export class InicioPage implements OnInit {
-  constructor() {}
+  constructor() { }
 
   nome: any;
 
-  user = auth.currentUser;
-
   ngOnInit() {
+
+
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        
         const uid = user.uid;
         console.log(uid);
 
@@ -34,7 +36,7 @@ export class InicioPage implements OnInit {
           console.log(this.nome)
         });
 
-      } 
+      }
     });
   }
 }

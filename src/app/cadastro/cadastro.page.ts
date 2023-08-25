@@ -57,7 +57,10 @@ export class CadastroPage implements OnInit {
       const docRef = await addDoc(collection(db, uid), {
         nome: nome,
         nomeEmpresa:nomeEmpresa,
-        numero: telefone
+        numero: telefone,
+        rendaM: '',
+        rendaS: '',
+        rendaD: ''
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

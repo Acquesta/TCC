@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { db } from "../../config/firebasedb";
-import { collection, addDoc, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, getDoc, getDocFromCache  } from "firebase/firestore";
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -18,6 +18,10 @@ export class CadastroprodPage implements OnInit {
   precoVenda: any;
 
   uid: any;
+
+  idProdutos: any = [];
+
+  listaProdutos: any = [];
 
   async ngOnInit() {
     onAuthStateChanged(auth, async (user) => {
@@ -58,8 +62,30 @@ export class CadastroprodPage implements OnInit {
   async produtos(){
     const querySnapshot = await getDocs(collection(db, this.uid, 'produtos', 'produtos' ));
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });    
+      // console.log(doc.id, " => ", doc.data());
+
+      const produto = doc.data()
+      const id = doc.id      
+
+      if(this.idProdutos.indexOf(id) >= 0){
+        console.log('Esta no array')
+      }else{
+        this.idProdutos.push(id)
+        console.log('Id cadastrado ' + id);
+        
+        this.listaProdutos.push(
+          {
+            nome: produto['nome'],
+            quantidade: produto['quantidade'],
+            validade: produto['validade'],
+            precoProduto: produto['precoProduto']
+          }    
+        )
+      }
+
+      }
+
+    );    
 
   }
 }

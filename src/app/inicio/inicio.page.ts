@@ -14,11 +14,7 @@ export class InicioPage implements OnInit {
   constructor() { }
 
   uid:any;
-
   nome: any;
-
-  listaProdutos: any = [];
-  idProdutos: any = [];
 
   async ngOnInit() {
 
@@ -40,45 +36,9 @@ export class InicioPage implements OnInit {
           console.log(this.nome)
         });
 
-        const produtos = getDocs(collection(db, this.uid, 'produtos', 'produtos' ));
-        (await produtos).forEach((doc) => {
-          const produto = doc.data()
-          this.listaProdutos.push(produto)
-        })
-
       }
 
     });
-
-    // async function produtos(){
-    //   const querySnapshot = await getDocs(collection(db, this.uid, 'produtos', 'produtos' ));
-    //   querySnapshot.forEach((doc) => {
-    //     // console.log(doc.id, " => ", doc.data());
-  
-    //     const produto = doc.data()
-    //     const id = doc.id      
-  
-    //     if(this.idProdutos.indexOf(id) >= 0){
-    //       console.log('Esta no array')
-    //     }else{
-    //       this.idProdutos.push(id)
-    //       console.log('Id cadastrado ' + id);
-          
-    //       this.listaProdutos.push(
-    //         {
-    //           nome: produto['nome'],
-    //           quantidade: produto['quantidade'],
-    //           validade: produto['validade'],
-    //           precoProduto: produto['precoProduto']
-    //         }    
-    //       )
-    //     }
-  
-    //     }
-  
-    //   );    
-  
-    // }
 
   }
   

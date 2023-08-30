@@ -82,7 +82,7 @@ a {
   font-weight: 500;
   font-size: 20px;
   height: 40px;
-  width: 260px;
+  width: 200px;
   border: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 
@@ -153,4 +153,30 @@ h1 {
   100% {
       background-position-x: -1000px;
   }
+}
+
+.botoesdiv {
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adicionar {
+  text-align: center;
+  background-color: #17BF6F;
+  margin-top: 15px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  height: 40px;
+  width: 50px;
+  margin-left: 8px;
+  border: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.adicionar:active {
+  transform: scale(1.05);
 }

@@ -7,6 +7,18 @@
 <ion-content [fullscreen]="true">
  <h1>Olá, {{nome}}</h1>
 
- <button routerLink="../cadastroprod">Voltar</button>
+<button routerLink="../cadastroprod">Voltar</button>
+
+  <div>
+    <ul>
+      <li *ngFor="let produto of listaProdutos">
+        <div>
+          <h2>{{produto.nome}}</h2>
+          <h3>R$ {{produto.precoProduto}}</h3>
+        </div>
+        <button>Vender</button>
+      </li>
+    </ul>
+  </div>
 
 </ion-content>

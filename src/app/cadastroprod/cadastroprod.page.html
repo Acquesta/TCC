@@ -7,10 +7,10 @@
     <input type="text" placeholder="Nome" [(ngModel)]="nome">
     <input type="text" placeholder="Quantidade" [(ngModel)]="quantidade">
     <input type="text" placeholder="Validade" [(ngModel)]="validade">
-    <input type="text" placeholder="Preço de venda" [(ngModel)]="precoVenda">
+    <input type="text" placeholder="Preço de venda" [(ngModel)]="precoProduto">
     <div class="botoesdiv">
       <button id="botao-login" routerLink="../listaprod">Continuar</button>
-      <button class="adicionar" (click)="cadastroProduto(nome, quantidade, validade, precoVenda)">+</button>
+      <button class="adicionar" (click)="cadastroProduto(nome, quantidade, validade, precoProduto)">+</button>
     </div>
 
 

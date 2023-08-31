@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
-import { getDocs, collection, doc } from "firebase/firestore";
+import { getDocs, collection, doc, QuerySnapshot } from "firebase/firestore";
 import { db } from "src/config/firebasedb";
 import { userLogado } from "src/config/user";
 
@@ -15,6 +15,8 @@ export class InicioPage implements OnInit {
 
   uid:any;
   nome: any;
+
+  listaProdutos: any = [];
 
   async ngOnInit() {
 
@@ -34,6 +36,7 @@ export class InicioPage implements OnInit {
           this.nome = db['nome']
 
           console.log(this.nome)
+
         });
 
       }
@@ -42,6 +45,12 @@ export class InicioPage implements OnInit {
 
   }
   
-
+  async produto(){
+    const querySnapshot = await getDocs(collection(db, this.uid, 'produtos', 'produtos'))
+    querySnapshot.forEach((doc) =>{
+    this.listaProdutos.push(doc.data())
+    console.log(doc.data())
+  })
+  }
 
 }

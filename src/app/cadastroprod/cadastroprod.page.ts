@@ -18,7 +18,7 @@ export class CadastroprodPage implements OnInit {
   nome: any;
   quantidade: any;
   validade: any;
-  precoVenda: any;
+  precoProduto: any;
 
   uid: any;
 
@@ -63,6 +63,11 @@ export class CadastroprodPage implements OnInit {
       console.log(e);
       exibirToast('Preciso colocar todas as informações', 4000, 'danger', 'top')
     }
+
+    this.nome = '';
+    this.quantidade = '';
+    this.validade = '';
+    this.precoProduto = '';
 
   }
 

@@ -6,8 +6,13 @@
 
 <ion-content [fullscreen]="true">
  <h1>Olá, {{nome}}</h1>
+ <h2>R$ {{rendaM}}</h2>
+ <h2>R$ {{rendaS}}</h2>
+ <h2>R$ {{rendaD}}</h2>
 
-<button routerLink="../cadastroprod">Voltar</button>
+<button routerLink="../cadastroprod" style="padding: 1rem;">Voltar</button>
+
+<div class="grafico" [style]="grafico"></div>
 
   <div>
     <ul>
@@ -16,7 +21,7 @@
           <h2>{{produto.nome}}</h2>
           <h3>R$ {{produto.precoProduto}}</h3>
         </div>
-        <button>Vender</button>
+        <button (click)="vender(produto)" style="padding: 1rem;">Vender</button>
       </li>
     </ul>
   </div>

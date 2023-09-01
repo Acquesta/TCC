@@ -58,9 +58,9 @@ export class CadastroPage implements OnInit {
         nome: nome,
         nomeEmpresa:nomeEmpresa,
         numero: telefone,
-        rendaM: '',
-        rendaS: '',
-        rendaD: ''
+        rendaM: '0',
+        rendaS: '0',
+        rendaD: '0'
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

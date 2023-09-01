@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
-import { getDocs, collection, doc, QuerySnapshot } from "firebase/firestore";
+import { getDocs, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "src/config/firebasedb";
 import { userLogado } from "src/config/user";
+import { exibirToast } from "src/config/alert";
 
 @Component({
   selector: "app-inicio",
@@ -14,13 +15,25 @@ export class InicioPage implements OnInit {
   constructor() { }
 
   uid:any;
+  user: any;
+  id: any;
+
   nome: any;
+  rendaM: any;
+  rendaS: any;
+  rendaD: any;
 
   listaProdutos: any = [];
 
+  grafico: any;
+  porcentagem1: any = 50;
+  porcentagem2: any = 100;
+  porcentagem3: any;
+  porcentagem4: any;
+
   async ngOnInit() {
 
-    onAuthStateChanged(auth, async (user) => {
+    await onAuthStateChanged(auth, async (user) => {
       if (user) {
         
         this.uid = user.uid;
@@ -31,26 +44,40 @@ export class InicioPage implements OnInit {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc);
 
-          const db = doc.data()
+          this.user = doc.data()
+          this.id = doc.id
 
-          this.nome = db['nome']
-
-          console.log(this.nome)
+          this.nome = this.user['nome']
+          this.rendaM = this.user['rendaM']
+          this.rendaS = this.user['rendaS']
+          this.rendaD = this.user['rendaD']
 
         });
+
+        const produtos = await getDocs(collection(db, this.uid, 'produtos', 'produtos'))
+        produtos.forEach((doc) => {
+          const produto = doc.data()
+          this.listaProdutos.push(produto)
+        })
 
       }
 
     });
 
+    this.grafico = 'background: conic-gradient( #DB5217 0% ' + this.porcentagem1 + '%' + ' , #ED8144 ' + this.porcentagem1 + '% ' + this.porcentagem2 +'%, #F6B656 ' + this.porcentagem2 + '% ' + this.porcentagem3 +  '%, #FFEA78 ' + this.porcentagem3 + '% ' + this.porcentagem4 + '% );'
+
   }
-  
-  async produto(){
-    const querySnapshot = await getDocs(collection(db, this.uid, 'produtos', 'produtos'))
-    querySnapshot.forEach((doc) =>{
-    this.listaProdutos.push(doc.data())
-    console.log(doc.data())
-  })
+
+  vender(produto:any){
+    const precoProduto = parseInt(produto.precoProduto) 
+    this.rendaM = parseInt(this.rendaM) + precoProduto
+
+    const update = updateDoc(doc(db, this.uid, this.id), {
+      rendaM: this.rendaM  
+    }).then(() => {
+      exibirToast('Produto vendido', 2000, 'success', 'bottom')
+    })
+
   }
 
 }

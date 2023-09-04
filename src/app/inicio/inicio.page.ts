@@ -26,12 +26,14 @@ export class InicioPage implements OnInit {
   idProdutos: any = [];
 
   vendaTotal: any = 0;
+  contaGrafico: any = [];
+  porcentagens: any = [];
 
   grafico: any;
-  porcentagem1: any = 25;
-  porcentagem2: any = 25;
-  porcentagem3: any = 100;
+  porcentagem2: any;
+  porcentagem3: any;
   porcentagem4: any;
+
 
   async ngOnInit() {
 
@@ -67,7 +69,7 @@ export class InicioPage implements OnInit {
 
     });
 
-    this.grafico = 'background: conic-gradient( #DB5217 0% ' + this.porcentagem1 + '%' + ' , #ED8144 ' + this.porcentagem1 + '% ' + this.porcentagem2 +'%);'
+    this.grafico = 'background: conic-gradient( #DB5217 0%  100%);'
 
   }
 
@@ -91,12 +93,38 @@ export class InicioPage implements OnInit {
   }
 
   graficoProdutos(){
+
+    this.vendaTotal = 0
+    this.contaGrafico = [];
+    this.porcentagens = [];
+
     this.listaProdutos.forEach((produto:any) => {
       this.vendaTotal += produto[0].venda
-      console.log(produto ,produto[0]?.venda);
+
+      const conta = (produto[0].venda * 100)
+      this.contaGrafico.push(conta)
+
+      console.log('Preço produto: ' + produto[0]?.venda);
     });
 
-    console.log(this.vendaTotal);
+    this.contaGrafico.forEach((porcentagem: any) => {
+      const conta = porcentagem / this.vendaTotal
+      this.porcentagens.push(conta)
+      console.log(conta + '%')
+    })
+
+    console.log('Venda total: ' + this.vendaTotal);
+    console.log(this.porcentagens)
+
+    if(this.porcentagens.length === 4){
+      this.porcentagem2 = this.porcentagens[0] + this.porcentagens[1]
+      this.porcentagem3 = this.porcentagem2 + this.porcentagens[2]
+      this.porcentagem4 = this.porcentagem3 + this.porcentagens[3]
+
+      this.grafico = 'background: conic-gradient( #7DE8FF 0% ' + this.porcentagens[0] + '%' + ' , #39A0FF ' + this.porcentagens[0] + '% ' + this.porcentagem2 + '%, #27CBFF' + this.porcentagem2 + '% ' + this.porcentagem3 + '% , #2717DB ' + this.porcentagem3 + '% 100%);'
+    }
+
+    
     
   }
 

@@ -49,6 +49,7 @@ export class CadastroprodPage implements OnInit {
       quantidade: quantidade,
       validade: validade,
       precoProduto: precoProduto,
+      venda: 0
     };
 
     try {

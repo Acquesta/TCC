@@ -3,7 +3,6 @@ import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "src/config/firebasedb";
-import { userLogado } from "src/config/user";
 import { exibirToast } from "src/config/alert";
 
 @Component({
@@ -24,11 +23,14 @@ export class InicioPage implements OnInit {
   rendaD: any;
 
   listaProdutos: any = [];
+  idProdutos: any = [];
+
+  vendaTotal: any = 0;
 
   grafico: any;
-  porcentagem1: any = 50;
-  porcentagem2: any = 100;
-  porcentagem3: any;
+  porcentagem1: any = 25;
+  porcentagem2: any = 25;
+  porcentagem3: any = 100;
   porcentagem4: any;
 
   async ngOnInit() {
@@ -57,27 +59,45 @@ export class InicioPage implements OnInit {
         const produtos = await getDocs(collection(db, this.uid, 'produtos', 'produtos'))
         produtos.forEach((doc) => {
           const produto = doc.data()
-          this.listaProdutos.push(produto)
+          this.listaProdutos.push([produto, doc.id])
+          console.log(this.listaProdutos)
         })
 
       }
 
     });
 
-    this.grafico = 'background: conic-gradient( #DB5217 0% ' + this.porcentagem1 + '%' + ' , #ED8144 ' + this.porcentagem1 + '% ' + this.porcentagem2 +'%, #F6B656 ' + this.porcentagem2 + '% ' + this.porcentagem3 +  '%, #FFEA78 ' + this.porcentagem3 + '% ' + this.porcentagem4 + '% );'
+    this.grafico = 'background: conic-gradient( #DB5217 0% ' + this.porcentagem1 + '%' + ' , #ED8144 ' + this.porcentagem1 + '% ' + this.porcentagem2 +'%);'
 
   }
 
   vender(produto:any){
-    const precoProduto = parseInt(produto.precoProduto) 
+    const precoProduto = parseInt(produto[0].precoProduto) 
     this.rendaM = parseInt(this.rendaM) + precoProduto
 
-    const update = updateDoc(doc(db, this.uid, this.id), {
+    const updateRenda = updateDoc(doc(db, this.uid, this.id), {
       rendaM: this.rendaM  
     }).then(() => {
       exibirToast('Produto vendido', 2000, 'success', 'bottom')
     })
 
+    const updateVenda = updateDoc(doc(db, this.uid, 'produtos', 'produtos', produto[1],), {
+      venda: produto[0].venda + 1
+    }).then(() => {
+      produto[0].venda += 1
+      this.graficoProdutos()
+    })
+
+  }
+
+  graficoProdutos(){
+    this.listaProdutos.forEach((produto:any) => {
+      this.vendaTotal += produto[0].venda
+      console.log(produto ,produto[0]?.venda);
+    });
+
+    // console.log(this.vendaTotal);
+    
   }
 
 }

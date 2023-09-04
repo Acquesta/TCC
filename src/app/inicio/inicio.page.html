@@ -18,8 +18,8 @@
     <ul>
       <li *ngFor="let produto of listaProdutos">
         <div>
-          <h2>{{produto.nome}}</h2>
-          <h3>R$ {{produto.precoProduto}}</h3>
+          <h2>{{produto[0].nome}}</h2>
+          <h3>R$ {{produto[0].precoProduto}}</h3>
         </div>
         <button (click)="vender(produto)" style="padding: 1rem;">Vender</button>
       </li>

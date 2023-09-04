@@ -96,7 +96,7 @@ export class InicioPage implements OnInit {
       console.log(produto ,produto[0]?.venda);
     });
 
-    // console.log(this.vendaTotal);
+    console.log(this.vendaTotal);
     
   }
 

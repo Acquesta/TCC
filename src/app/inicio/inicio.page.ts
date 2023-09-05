@@ -88,6 +88,8 @@ export class InicioPage implements OnInit {
     }).then(() => {
       produto[0].venda += 1
       this.graficoProdutos()
+      const date = new Date()
+      console.log(date)
     })
 
   }
@@ -113,10 +115,13 @@ export class InicioPage implements OnInit {
       console.log(conta + '%')
     })
 
+    this.porcentagens.sort((a: any, b: any) => b - a)
+
     console.log('Venda total: ' + this.vendaTotal);
     console.log(this.porcentagens)
 
-    if(this.porcentagens.length === 4){
+    if(this.porcentagens.length >= 4){
+
       this.porcentagem2 = this.porcentagens[0] + this.porcentagens[1]
       this.porcentagem3 = this.porcentagem2 + this.porcentagens[2]
       this.porcentagem4 = this.porcentagem3 + this.porcentagens[3]

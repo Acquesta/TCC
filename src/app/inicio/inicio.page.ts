@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
-import { getDocs, collection, doc, updateDoc } from "firebase/firestore";
+import { getDocs, collection, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "src/config/firebasedb";
 import { exibirToast } from "src/config/alert";
 
@@ -46,7 +46,7 @@ export class InicioPage implements OnInit {
         const querySnapshot = await getDocs(collection(db, this.uid));
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc);
+          // console.log(doc.id, " => ", doc);
 
           this.user = doc.data()
           this.id = doc.id
@@ -62,7 +62,8 @@ export class InicioPage implements OnInit {
         produtos.forEach((doc) => {
           const produto = doc.data()
           this.listaProdutos.push([produto, doc.id])
-          console.log(this.listaProdutos)
+          // Mostra os Id e os Produtos 
+          // console.log(this.listaProdutos)
         })
 
       }
@@ -74,6 +75,8 @@ export class InicioPage implements OnInit {
   }
 
   vender(produto:any){
+
+    this.rendas(produto[1])
 
     // Pega o preço do produto
     const precoProduto = parseInt(produto[0].precoProduto) 
@@ -93,7 +96,7 @@ export class InicioPage implements OnInit {
 
     // Data de hoje
     const date = new Date()
-    console.log(date.getDate())
+    console.log("dia de hj: " + date.getDate())
 
     // Adiciona a data da última venda
     const updateVenda = updateDoc(doc(db, this.uid, 'produtos', 'produtos', produto[1],), {
@@ -107,8 +110,6 @@ export class InicioPage implements OnInit {
       produto[0].venda += 1
       this.graficoProdutos()
     })
-
-    this.rendas(produto[1])
 
   }
 
@@ -124,19 +125,23 @@ export class InicioPage implements OnInit {
       const conta = (produto[0].venda * 100)
       this.contaGrafico.push(conta)
 
-      console.log('Preço produto: ' + produto[0]?.venda);
+      // Mostra quantidade de vendas por produto
+      // console.log('Preço produto: ' + produto[0]?.venda);
     });
 
     this.contaGrafico.forEach((porcentagem: any) => {
       const conta = porcentagem / this.vendaTotal
       this.porcentagens.push(conta)
-      console.log(conta + '%')
+
+      // Porcentagens de cada Produto
+      // console.log(conta + '%')
     })
 
     this.porcentagens.sort((a: any, b: any) => b - a)
 
     console.log('Venda total: ' + this.vendaTotal);
-    console.log(this.porcentagens)
+    
+    // console.log(this.porcentagens)
 
     if(this.porcentagens.length >= 4){
 
@@ -153,12 +158,21 @@ export class InicioPage implements OnInit {
 
     const date = new Date()
 
-    const rendas = await getDocs(collection(db, this.uid, 'produtos', 'produtos', idProduto, 'ultimavenda'))
-    console.log(rendas)
-    // rendas.forEach((produto) => {
-    //   console.log(produto)
-    //   // if(date.getDate() != produto.ultimaVenda.dia)
-    // });
+    const rendas = await getDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto))
+    const produto = rendas.data()
+    const ultimaVenda = produto?.['ultimaVenda']
+    
+    if(date.getDate() != ultimaVenda.dia){
+      const upDateVenda = updateDoc(doc(db, this.uid, this.id), {
+        rendaD: 0
+      })
+    }
+
+    if(date.getMonth() != ultimaVenda.mes){
+      const updateVenda = updateDoc(doc(db, this.uid, this.id), {
+        rendaM: 0
+      })
+    }
   }
 
 }

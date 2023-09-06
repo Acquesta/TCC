@@ -74,23 +74,41 @@ export class InicioPage implements OnInit {
   }
 
   vender(produto:any){
-    const precoProduto = parseInt(produto[0].precoProduto) 
-    this.rendaM = parseInt(this.rendaM) + precoProduto
 
+    // Pega o preço do produto
+    const precoProduto = parseInt(produto[0].precoProduto) 
+
+    this.rendaM = parseInt(this.rendaM) + precoProduto
+    this.rendaD = parseInt(this.rendaD) + precoProduto
+    this.rendaS = parseInt(this.rendaS) + precoProduto
+
+    // Adiocina as rendas 
     const updateRenda = updateDoc(doc(db, this.uid, this.id), {
+      rendaD: this.rendaD,
+      rendaS: this.rendaS,
       rendaM: this.rendaM  
     }).then(() => {
       exibirToast('Produto vendido', 2000, 'success', 'bottom')
     })
 
+    // Data de hoje
+    const date = new Date()
+    console.log(date.getDate())
+
+    // Adiciona a data da última venda
     const updateVenda = updateDoc(doc(db, this.uid, 'produtos', 'produtos', produto[1],), {
-      venda: produto[0].venda + 1
+      venda: produto[0].venda + 1,
+      ultimaVenda: {
+        dia: date.getDate(),
+        mes: date.getMonth(),
+        ano: date.getFullYear()
+      }
     }).then(() => {
       produto[0].venda += 1
       this.graficoProdutos()
-      const date = new Date()
-      console.log(date)
     })
+
+    this.rendas(produto[1])
 
   }
 
@@ -128,9 +146,19 @@ export class InicioPage implements OnInit {
 
       this.grafico = 'background: conic-gradient( #7DE8FF 0% ' + this.porcentagens[0] + '%' + ' , #39A0FF ' + this.porcentagens[0] + '% ' + this.porcentagem2 + '%, #27CBFF' + this.porcentagem2 + '% ' + this.porcentagem3 + '% , #2717DB ' + this.porcentagem3 + '% 100%);'
     }
+    
+  }
 
-    
-    
+  async rendas(idProduto: any){
+
+    const date = new Date()
+
+    const rendas = await getDocs(collection(db, this.uid, 'produtos', 'produtos', idProduto, 'ultimavenda'))
+    console.log(rendas)
+    // rendas.forEach((produto) => {
+    //   console.log(produto)
+    //   // if(date.getDate() != produto.ultimaVenda.dia)
+    // });
   }
 
 }

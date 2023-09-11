@@ -21,6 +21,7 @@ export class InicioPage implements OnInit {
   rendaM: any;
   rendaS: any;
   rendaD: any;
+  rendaTotal: any;
 
   listaProdutos: any = [];
   idProdutos: any = [];
@@ -34,6 +35,7 @@ export class InicioPage implements OnInit {
   porcentagem3: any;
   porcentagem4: any;
 
+  diasTrabalhados: any;
 
   async ngOnInit() {
 
@@ -56,6 +58,8 @@ export class InicioPage implements OnInit {
           this.rendaS = this.user['rendaS']
           this.rendaD = this.user['rendaD']
 
+          this.rendaTotal = this.user['rendaTotal']
+
         });
 
         const produtos = await getDocs(collection(db, this.uid, 'produtos', 'produtos'))
@@ -74,9 +78,9 @@ export class InicioPage implements OnInit {
 
   }
 
-  vender(produto:any){
+  async vender(produto:any){
 
-    this.rendas(produto[1])
+    await this.rendas(produto[1])
 
     // Pega o preço do produto
     const precoProduto = parseInt(produto[0].precoProduto) 
@@ -89,9 +93,12 @@ export class InicioPage implements OnInit {
     const updateRenda = updateDoc(doc(db, this.uid, this.id), {
       rendaD: this.rendaD,
       rendaS: this.rendaS,
-      rendaM: this.rendaM  
+      rendaM: this.rendaM, 
+      rendaTotal: this.rendaD + this.rendaTotal  
     }).then(() => {
       exibirToast('Produto vendido', 2000, 'success', 'bottom')
+      console.log(this.rendaD, this.rendaM, this.rendaS);
+      
     })
 
     // Data de hoje
@@ -162,16 +169,14 @@ export class InicioPage implements OnInit {
     const produto = rendas.data()
     const ultimaVenda = produto?.['ultimaVenda']
     
-    if(date.getDate() != ultimaVenda.dia){
-      const upDateVenda = updateDoc(doc(db, this.uid, this.id), {
-        rendaD: 0
-      })
+    if(date.getDate() != ultimaVenda?.dia){
+      console.log('Dia diferente')
+      this.rendaD = 0
     }
 
-    if(date.getMonth() != ultimaVenda.mes){
-      const updateVenda = updateDoc(doc(db, this.uid, this.id), {
-        rendaM: 0
-      })
+    if(date.getMonth() != ultimaVenda?.mes){
+      console.log('Outro mês');
+      this.rendaM = 0
     }
   }
 

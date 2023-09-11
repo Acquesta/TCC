@@ -60,7 +60,8 @@ export class CadastroPage implements OnInit {
         numero: telefone,
         rendaM: '0',
         rendaS: '0',
-        rendaD: '0'
+        rendaD: '0',
+        rendaTotal: 0
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

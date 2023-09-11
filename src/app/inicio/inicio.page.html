@@ -1,32 +1,145 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
- <h1>Olá, {{nome}}</h1>
- <h3>Renda Mensal</h3>
- <h2>R$ {{rendaM}}</h2>
- <h3>Renda Semanal</h3>
- <h2>R$ {{rendaS}}</h2>
- <h3>Renda Diaria</h3>
- <h2>R$ {{rendaD}}</h2>
 
-<button routerLink="../cadastroprod" style="padding: 1rem;">Voltar</button>
+  <div class="gradient">
+    <h1>Olá, {{nome}}</h1>
+  </div>
+  <div class="text-box">
 
-<div class="grafico" [style]="grafico"></div>
+    <div class="info-box">
+      <h2>R${{rendaS}}</h2>
+      <p>Semanal</p>
+    </div>
+
+
+    <div class="info-box">
+      <h2>R${{rendaM}}</h2>
+      <p>Mensal</p>
+    </div>
+
+
+    <div class="info-box">
+      <h2>R${{rendaD}}</h2>
+      <p>Diaria</p>
+    </div>
+
+  </div>
+
+
+  <div class="lembrete-titulo" routerLink="../lembretes">
+    <h2>Lembrete</h2>
+    <ion-icon class="icone-arrow" name="caret-forward-outline"></ion-icon>
+  </div>
+
+
+  <div class="box-center-content">
+
+    <div class="box-lembretes">
+
+      <div class="lembretes">
+        <div class="backgroundlogo">
+          <ion-icon name="bookmarks">
+          </ion-icon>
+        </div>
+        <p>Amendoim expira amanhã!</p>
+      </div>
+
+      <div class="lembretes">
+        <div class="backgroundlogo">
+          <ion-icon name="bookmarks">
+          </ion-icon>
+        </div>
+        <p>Você cumpriu uma meta!</p>
+      </div>
+
+      <div class="lembretes">
+        <div class="backgroundlogo">
+          <ion-icon name="bookmarks">
+          </ion-icon>
+        </div>
+        <p>Um evento está próximo.</p>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+  <div class="estatisticas-titulo">
+    <h2>Estatísticas</h2>
+    <ion-icon class="icone-arrow" name="caret-forward-outline"></ion-icon>
+  </div>
+
+  <div class="estat">
+
+
+    <div class="box-estat">
+
+      <div class="grafico" [style]="grafico"></div>
+
+      <div class="column">
+        <div class="legenda-estat">
+          <div class="legenda-color"></div>
+          <div class="legenda-text">Legenda</div>
+        </div>
+  
+        <div class="legenda-estat">
+          <div class="legenda-color"></div>
+          <div class="legenda-text">Legenda</div>
+        </div>
+  
+        <div class="legenda-estat">
+          <div class="legenda-color"></div>
+          <div class="legenda-text">Legenda</div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+  <div class="vender-titulo">
+    <h2>Vender</h2>
+    <ion-icon class="icone-arrow" name="caret-forward-outline"></ion-icon>
+  </div>
 
   <div>
-    <ul>
-      <li *ngFor="let produto of listaProdutos">
-        <div>
+    <ul class="listaProdutos">
+      <li *ngFor="let produto of listaProdutos" class="produtos">
+        <div class="nomeProduto">
           <h2>{{produto[0].nome}}</h2>
+        </div>
+        <div class="preco">
           <h3>R$ {{produto[0].precoProduto}}</h3>
         </div>
-        <button (click)="vender(produto)" style="padding: 1rem;">Vender</button>
       </li>
     </ul>
   </div>
 
 </ion-content>
+
+<!-- footer -->
+
+<ion-tab-bar slot="bottom">
+  <ion-tab-button>
+    <ion-icon name="receipt-outline"></ion-icon>
+  </ion-tab-button>
+  
+  <ion-tab-button>
+    <ion-icon name="stats-chart-outline" routerLink="../estatisticas"></ion-icon>
+  </ion-tab-button>
+  
+  <ion-tab-button>
+    <ion-icon name="home-outline" routerLink="../inicio" class="selected"></ion-icon>
+  </ion-tab-button>
+  
+  <ion-tab-button>
+    <ion-icon routerLink="../produtos" name="cube-outline"></ion-icon>
+  </ion-tab-button>
+  
+  <ion-tab-button>
+    <ion-icon name="settings-outline"></ion-icon>
+  </ion-tab-button>
+</ion-tab-bar>

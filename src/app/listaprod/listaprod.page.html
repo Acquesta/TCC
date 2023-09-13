@@ -6,10 +6,11 @@
 
 
   <ion-list>
-    <ion-item-sliding *ngFor="let produto of listaProdutos">
+    <ion-item-sliding *ngFor="let produto of listaProdutos" (ionSwipe)="excluirProduto(produto.id)">
       <ion-item lines="full">
         <ion-thumbnail slot="start">
-          <ion-icon name="image-outline" style="width: 100%; height: 100%;"></ion-icon>
+          <!-- Classe vermelha: -->
+          <ion-icon name="image-outline" style="width: 100%; height: 100%; " ></ion-icon>
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">
           <div>
@@ -28,7 +29,7 @@
         <ion-item-option color="primary" [routerLink]="'/cadastroprod/:' + produto.id">
           <ion-icon slot="icon-only" name="pencil"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger" expandable>
+        <ion-item-option color="danger" expandable >
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

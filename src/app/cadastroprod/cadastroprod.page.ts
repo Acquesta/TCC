@@ -5,6 +5,7 @@ import { collection, addDoc, getDocs, doc, getDoc, getDocFromCache  } from "fire
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 import { exibirToast } from "src/config/alert";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-cadastroprod",
@@ -13,7 +14,8 @@ import { exibirToast } from "src/config/alert";
 })
 
 export class CadastroprodPage implements OnInit {
-  constructor() {}
+
+  constructor(public router: Router) {}
 
   nome: any;
   quantidade: any;
@@ -70,6 +72,10 @@ export class CadastroprodPage implements OnInit {
     this.validade = '';
     this.precoProduto = '';
 
+  }
+
+  pagListaProd(){
+    this.router.navigate(['../listaprod'])
   }
 
 }

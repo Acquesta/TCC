@@ -2,7 +2,9 @@ import { db } from 'src/config/firebasedb';
 import auth from 'src/config/firebasedb';
 import { Component, OnInit } from '@angular/core';
 import { onAuthStateChanged } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
+import { exibirToast } from 'src/config/alert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listaprod',
@@ -11,7 +13,7 @@ import { collection, getDocs } from 'firebase/firestore';
 })
 export class ListaprodPage implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   uid:any;
 
@@ -45,4 +47,16 @@ export class ListaprodPage implements OnInit {
 
   }
 
+  async excluirProduto(idp: any){
+    
+
+    const deletar = await deleteDoc(doc(db, this.uid, 'produtos', 'produtos', idp))
+    .then(() => {
+      exibirToast('Produto excluído, recarregue a página', 6000, 'success', 'top')
+      // window.location.reload();
+    })
+  }
+
 }
+
+

@@ -1,39 +1,37 @@
-<ion-header [translucent]="true">
+<ion-header>
+  <div class="gradient">
+    <h1><u>Produtos</u></h1>
+  </div>
+
+
+
   <ion-list>
-
-    <ion-header>
-    <ion-toolbar>
-      <ion-title>Lista de produtos</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
     <ion-item-sliding *ngFor="let produto of listaProdutos">
       <ion-item lines="full">
+        <ion-thumbnail slot="start">
+          <ion-icon name="image-outline" style="width: 100%; height: 100%;"></ion-icon>
+        </ion-thumbnail>
         <ion-label class="ion-text-wrap">
           <div>
             <h1>{{produto.nome}}</h1>
-            <p>Quantidade : {{produto.quantidade}} produto(s)</p>
-            <p>Valor : R$ {{produto.precoProduto}}</p>
+            <div class="text-dentro-card">
+              <p>{{produto.quantidade}} produto(s)</p>
+              <p>04/02</p>
+              <p class="preco">R$ {{produto.precoProduto}} </p>
+            </div>
             <ion-badge color="medium">
             </ion-badge>
           </div>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="primary">
+        <ion-item-option color="primary" [routerLink]="'/cadastroprod/:' + produto.id">
           <ion-icon slot="icon-only" name="pencil"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger">
+        <ion-item-option color="danger" expandable>
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
-
-
-  </ion-list>
-
-      <div class="botao-center">
-        <button class="botao" routerLink="../inicio"><ion-icon name="arrow-forward-outline"></ion-icon> </button>
-      </div>
+    </ion-list>
+  </ion-header>

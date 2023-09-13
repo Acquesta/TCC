@@ -16,7 +16,6 @@ export class ListaprodPage implements OnInit {
   uid:any;
 
   listaProdutos: any = [];
-  idProdutos: any = [];
 
   ngOnInit() {
     onAuthStateChanged(auth, async (user) => {
@@ -28,19 +27,17 @@ export class ListaprodPage implements OnInit {
 
           const produto = doc.data()
 
-          this.idProdutos.push(doc.id)
-
           this.listaProdutos.push(
             {
               nome: produto['nome'],
               quantidade: produto['quantidade'],
               validade: produto['validade'],
-              precoProduto: produto['precoProduto']
-            }    
+              precoProduto: produto['precoProduto'],
+              id: doc.id
+            }            
           )
         })
 
-        console.log(this.idProdutos);
         console.log(this.listaProdutos)
         
       }

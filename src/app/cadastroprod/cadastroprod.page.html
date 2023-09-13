@@ -9,7 +9,7 @@
     <input type="text" placeholder="Validade" [(ngModel)]="validade">
     <input type="text" placeholder="Preço de venda" [(ngModel)]="precoProduto">
     <div class="botoesdiv">
-      <button id="botao-login" routerLink="../listaprod">Continuar</button>
+      <button id="botao-login" (click)="pagListaProd()">Continuar</button>
       <button class="adicionar" (click)="cadastroProduto(nome, quantidade, validade, precoProduto)">+</button>
     </div>
 

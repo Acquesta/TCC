@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./cadastro/cadastro.module').then( m => m.CadastroPageModule)
   },
   {
-    path: 'cadastroprod/:id',
+    path: 'cadastroprod/:id/:idp',
     loadChildren: () => import('./cadastroprod/cadastroprod.module').then( m => m.CadastroprodPageModule)
   },
   {
@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'listaprod',
     loadChildren: () => import('./listaprod/listaprod.module').then( m => m.ListaprodPageModule)
+  },
+  {
+    path: 'atualizaprod',
+    loadChildren: () => import('./atualizaprod/atualizaprod.module').then( m => m.AtualizaprodPageModule)
   },
 ];
 

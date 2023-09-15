@@ -1,11 +1,11 @@
 
-import { Component, OnInit } from "@angular/core";
+import { Component, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { db } from "../../config/firebasedb";
 import { collection, addDoc, getDocs, doc, getDoc, getDocFromCache  } from "firebase/firestore";
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 import { exibirToast } from "src/config/alert";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-cadastroprod",
@@ -13,9 +13,10 @@ import { Router } from "@angular/router";
   styleUrls: ["./cadastroprod.page.scss"],
 })
 
-export class CadastroprodPage implements OnInit {
+export class CadastroprodPage implements OnInit  {
 
-  constructor(public router: Router) {}
+  constructor(public router: Router,
+    private rotaAtiva: ActivatedRoute) {}
 
   nome: any;
   quantidade: any;
@@ -34,7 +35,7 @@ export class CadastroprodPage implements OnInit {
         this.uid = user.uid;
         console.log(this.uid);
       }
-    });
+    });    
 
   }
 
@@ -77,5 +78,8 @@ export class CadastroprodPage implements OnInit {
   pagListaProd(){
     this.router.navigate(['../listaprod'])
   }
+
+  idp = this.rotaAtiva.snapshot.params['idp'];
+  
 
 }

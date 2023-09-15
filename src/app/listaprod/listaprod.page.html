@@ -5,8 +5,8 @@
 
 
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let produto of listaProdutos" (ionSwipe)="excluirProduto(produto.id)">
+  <ion-list *ngIf="listaProdutos">
+    <ion-item-sliding *ngFor="let produto of listaProdutos" (ionSwipe)="excluirProduto(produto)">
       <ion-item lines="full">
         <ion-thumbnail slot="start">
           <!-- Classe vermelha: -->
@@ -17,7 +17,7 @@
             <h1>{{produto.nome}}</h1>
             <div class="text-dentro-card">
               <p>{{produto.quantidade}} produto(s)</p>
-              <p>04/02</p>
+              <p>{{produto.validade}}</p>
               <p class="preco">R$ {{produto.precoProduto}} </p>
             </div>
             <ion-badge color="medium">
@@ -26,10 +26,10 @@
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="primary" [routerLink]="'/cadastroprod/:' + produto.id">
+        <ion-item-option color="primary" (click)="editarProduto(produto)">
           <ion-icon slot="icon-only" name="pencil"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger" expandable >
+        <ion-item-option color="danger" expandable (click)="excluirProduto(produto)" >
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

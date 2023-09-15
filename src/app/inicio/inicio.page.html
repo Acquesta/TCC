@@ -78,20 +78,11 @@
       <div class="grafico" [style]="grafico"></div>
 
       <div class="column">
-        <div class="legenda-estat">
+        <div class="legenda-estat" *ngFor="let produto of listaProdutos">
           <div class="legenda-color"></div>
-          <div class="legenda-text">Legenda</div>
+          <div class="legenda-text">{{produto[0].nome}}</div>
         </div>
-  
-        <div class="legenda-estat">
-          <div class="legenda-color"></div>
-          <div class="legenda-text">Legenda</div>
-        </div>
-  
-        <div class="legenda-estat">
-          <div class="legenda-color"></div>
-          <div class="legenda-text">Legenda</div>
-        </div>
+
       </div>
 
     </div>
@@ -105,17 +96,31 @@
     <ion-icon class="icone-arrow" name="caret-forward-outline"></ion-icon>
   </div>
 
-  <div>
-    <ul class="listaProdutos">
-      <li *ngFor="let produto of listaProdutos" class="produtos">
-        <div class="nomeProduto">
-          <h2>{{produto[0].nome}}</h2>
+  <div class="box-center-content">
+
+    <div class="box-vender">
+
+      <div class="lembretes" *ngFor="let produto of listaProdutos" (click)="vender(produto)">
+        <div class="backgroundvender">
+          <p>{{produto[0].quantidade}}</p>
         </div>
-        <div class="preco">
-          <h3>R$ {{produto[0].precoProduto}}</h3>
+        <div class="precoeproduto">
+          <p>{{produto[0].nome}}</p>
+          <p>R${{produto[0].precoProduto}}</p>
         </div>
-      </li>
-    </ul>
+      </div>
+
+      <button class="lembretes" routerLink="../listaprod">
+        <div class="backgroundvender">
+          <ion-icon name="add-outline">
+          </ion-icon>
+        </div>
+        <p>Adicionar produto</p>
+      </button>
+
+
+    </div>
+
   </div>
 
 </ion-content>

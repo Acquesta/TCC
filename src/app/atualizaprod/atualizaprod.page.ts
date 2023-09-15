@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { doc, getDoc } from 'firebase/firestore';
+import { ActivatedRoute, Router } from '@angular/router';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from 'src/config/firebasedb';
 
 @Component({
@@ -10,27 +10,42 @@ import { db } from 'src/config/firebasedb';
 })
 export class AtualizaprodPage implements OnInit {
 
-  constructor(private rotaAtiva: ActivatedRoute) { }
+  constructor(private rotaAtiva: ActivatedRoute,
+    public router: Router) { }
 
   id:any;
   idp:any;
 
-  nome:any;
-  quantidade:any;
-  validade:any;
-  precoProduto:any;
+  produto: any = {
+    nome: '',
+    quantidade: '',
+    validade: '',
+    precoProduto: ''
+  };
+
+  
 
   async ngOnInit() {
-     this.id = this.rotaAtiva.snapshot.params['id']
-     this.idp = this.rotaAtiva.snapshot.params['idp']
+    this.id = this.rotaAtiva.snapshot.params['id']
+    this.idp = this.rotaAtiva.snapshot.params['idp']
 
-     const produto = await getDoc(doc(db, this.id, 'produtos', 'produtos', this.idp))
-     console.log(produto);
+    const achaproduto = await getDoc(doc(db, this.id, 'produtos', 'produtos', this.idp))
+    console.log(achaproduto.data())
+    this.produto = achaproduto.data()
      
   }
 
   editarProduto(){
-    
+    const update = updateDoc(doc(db, this.id, 'produtos', 'produtos', this.idp), {
+      nome: this.produto.nome,
+      precoProduto: this.produto.precoProduto,
+      quantidade: this.produto.quantidade,
+      validade: this.produto.validade,
+    })
+    .then(() => {
+      console.log('Produto alterado');
+      this.router.navigate(['../listaprod'])
+    })
   }
 
 }

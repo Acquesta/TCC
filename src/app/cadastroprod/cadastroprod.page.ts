@@ -47,12 +47,19 @@ export class CadastroprodPage implements OnInit  {
   ) {
     console.log(nome, quantidade, validade, precoProduto);
 
+    const date = new Date()
+
     const produto = {
       nome: nome,
       quantidade: quantidade,
       validade: validade,
       precoProduto: precoProduto,
-      venda: 0
+      venda: 0,
+      ultimaVenda: {
+        dia: date.getDate(),
+        mes: date.getMonth(),
+        ano: date.getFullYear()
+      }
     };
 
     try {

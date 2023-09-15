@@ -65,7 +65,11 @@ export class InicioPage implements OnInit {
         const produtos = await getDocs(collection(db, this.uid, 'produtos', 'produtos'))
         produtos.forEach((doc) => {
           const produto = doc.data()
-          this.listaProdutos.push([produto, doc.id])
+          if(this.listaProdutos.length <= 3){
+            this.listaProdutos.push([produto, doc.id])
+          } 
+
+          this.graficoProdutos()
           // Mostra os Id e os Produtos 
           // console.log(this.listaProdutos)
         })
@@ -74,7 +78,9 @@ export class InicioPage implements OnInit {
 
     });
 
-    this.grafico = 'background: conic-gradient( #DB5217 0%  100%);'
+    
+
+    this.grafico = 'background: conic-gradient( #1765DB 0%  100%);'
 
   }
 
@@ -97,7 +103,7 @@ export class InicioPage implements OnInit {
       rendaTotal: this.rendaD + this.rendaTotal  
     }).then(() => {
       exibirToast('Produto vendido', 2000, 'success', 'bottom')
-      console.log(this.rendaD, this.rendaM, this.rendaS);
+      //console.log(this.rendaD, this.rendaM, this.rendaS);
       
     })
 
@@ -144,9 +150,10 @@ export class InicioPage implements OnInit {
       // console.log(conta + '%')
     })
 
-    this.porcentagens.sort((a: any, b: any) => b - a)
+    // Filtragem produtos mais vendidos
+    // this.porcentagens.sort((a: any, b: any) => b - a)
 
-    console.log('Venda total: ' + this.vendaTotal);
+    // console.log('Venda total: ' + this.vendaTotal);
     
     // console.log(this.porcentagens)
 

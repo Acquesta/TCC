@@ -67,7 +67,7 @@ export class ListaprodPage implements OnInit, OnChanges {
   }
 
   editarProduto(produto:any){
-    this.router.navigate(['../cadastroprod/' + this.uid + '/' + produto.id])
+    this.router.navigate(['../ataulizaprod/' + this.uid + '/' + produto.id])
   }
 
 }

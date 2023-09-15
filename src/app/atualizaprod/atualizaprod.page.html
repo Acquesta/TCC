@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>atualizaprod</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">atualizaprod</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+
+  <section>
+    <div class="logo"></div>
+    <h1>Cadastre seus produtos</h1>
+    <input type="text" placeholder="Nome" [(ngModel)]="nome">
+    <input type="text" placeholder="Quantidade" [(ngModel)]="quantidade">
+    <input type="date" placeholder="Validade" [(ngModel)]="validade">
+    <input type="text" placeholder="Preço de venda" [(ngModel)]="precoProduto">
+    <div class="botoesdiv">
+      <button id="botao-login" (click)="editarProduto()">Editar</button>
+    </div>
+
+
+  </section>
+
+
 </ion-content>
+
+<ion-footer>
+  <div class="waves">
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+  </div>
+</ion-footer>

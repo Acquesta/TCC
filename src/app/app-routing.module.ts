@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'atualizaprod/:id/:idp',
     loadChildren: () => import('./atualizaprod/atualizaprod.module').then( m => m.AtualizaprodPageModule)
   },
+  {
+    path: 'produtos/:uid',
+    loadChildren: () => import('./produtos/produtos.module').then( m => m.ProdutosPageModule)
+  },
 ];
 
 @NgModule({

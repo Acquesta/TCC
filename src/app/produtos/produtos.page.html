@@ -1,0 +1,151 @@
+<ion-content [fullscreen]="true">
+  <div class="gradient">
+    <h1><u>Produtos</u></h1>
+  </div>
+
+  <div class="card-produtos">
+    <div class="cards" *ngFor="let produto of listaProdutos">
+      <h1>{{produto[0].nome}}</h1>
+
+      <div class="card-text-dentro">
+        <p>Quantidade:</p>
+        <p class="background">{{produto[0].quantidade}}</p>
+      </div>
+      <div class="card-text-dentro">
+        <p>Preço:</p>
+        <p class="background">R$ {{produto[0].precoProduto}}</p>
+      </div>
+      <div class="card-text-dentro">
+        <p>Validade:</p>
+        <p class="background">{{produto[0].validade}}</p>
+      </div>
+
+      <button class="editar">Editar</button>
+    </div>
+    
+  </div>
+
+
+  <!-- Gráfico dos produtos mais vendidos -->
+
+  <div class="titulos">
+    <h1>Produtos mais vendidos</h1>
+  </div>
+
+
+    
+  <div class="graficos">
+
+    <div class="weee">
+
+      <!-- <h1>Coca-Cola</h1> -->
+
+      <div class="graf">
+        <p>50 vendas</p>
+      </div>
+    </div>
+
+    <div class="weee">
+
+      <!-- <h1>Hamburguer</h1> -->
+
+      <div class="graf">
+        <p>70 vendas</p>
+      </div>
+    </div>
+
+
+    <div class="weee">
+
+      <!-- <h1>Batata M</h1> -->
+
+      <div class="graf">
+        <p>30 vendas</p>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="titulos">
+    <h1>Estoque</h1>
+  </div>
+
+
+  <!-- Estoque -->
+
+
+
+  <ion-list [inset]="true">
+
+
+      <div class="titulo-prod">
+
+        
+        <div class="estoques">
+          <p>Produtos</p>
+        </div>
+
+        
+        <div class="estoques">
+          <p>Quantidade <br> atual</p>
+        </div>
+
+        
+        <div class="estoques">
+          <p>Estoque <br> máximo</p>
+        </div>
+
+
+      </div>
+    
+      <hr style="color: black;">
+      
+    <ion-item>
+        <ion-label>Pokémon Yellow</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Mega Man X</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>The Legend of Zelda</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pac-Man</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Super Mario World</ion-label>
+      </ion-item>
+    </ion-list>
+
+
+
+
+</ion-content>
+
+<!-- footer -->
+
+<ion-tab-bar slot="bottom">
+  <ion-tab-button>
+    <ion-icon name="receipt-outline"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button>
+    <ion-icon name="stats-chart-outline" routerLink="../estatisticas"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button>
+    <ion-icon name="home-outline" (click)="paginaInicio()"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button>
+    <ion-icon routerLink="../produtos" name="cube-outline" class="selected"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button>
+    <ion-icon name="settings-outline"></ion-icon>
+  </ion-tab-button>
+</ion-tab-bar>  

@@ -114,6 +114,7 @@ export class InicioPage implements OnInit {
     // Adiciona a data da última venda
     const updateVenda = updateDoc(doc(db, this.uid, 'produtos', 'produtos', produto[1],), {
       venda: produto[0].venda + 1,
+      quantidade: produto[0].quantidade - 1,
       ultimaVenda: {
         dia: date.getDate(),
         mes: date.getMonth(),
@@ -121,6 +122,7 @@ export class InicioPage implements OnInit {
       }
     }).then(() => {
       produto[0].venda += 1
+      produto[0].quantidade -= 1
       this.graficoProdutos()
     })
 

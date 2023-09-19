@@ -20,7 +20,7 @@
         <p class="background">{{produto[0].validade}}</p>
       </div>
 
-      <button class="editar">Editar</button>
+      <button class="editar" (click)="pagProduto(produto)">Editar</button>
     </div>
     
   </div>
@@ -34,33 +34,34 @@
 
 
     
-  <div class="graficos">
+  <div class="graficos" *ngIf="topTresVendas.length >= 2">
+
+    
 
     <div class="weee">
 
-      <!-- <h1>Coca-Cola</h1> -->
+      <h1>{{topTresVendas[1][1]}}</h1> 
 
       <div class="graf">
-        <p>50 vendas</p>
+        <p>{{topTresVendas[1][0]}} Vendas </p>
       </div>
     </div>
 
     <div class="weee">
 
-      <!-- <h1>Hamburguer</h1> -->
+      <h1>{{topTresVendas[0][1]}}</h1> 
 
       <div class="graf">
-        <p>70 vendas</p>
+        <p>{{topTresVendas[0][0]}} Vendas</p>
       </div>
     </div>
 
-
     <div class="weee">
 
-      <!-- <h1>Batata M</h1> -->
+      <h1>{{topTresVendas[2][0]}}</h1> 
 
       <div class="graf">
-        <p>30 vendas</p>
+        <p>{{topTresVendas[2][0]}} Vendas </p>
       </div>
     </div>
 

@@ -155,3 +155,10 @@ h1 {
       background-position-x: -1000px;
   }
 }
+
+@media screen and (max-height: 600px){
+
+  ion-footer {
+    display: none;
+  }
+}

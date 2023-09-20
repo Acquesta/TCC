@@ -180,3 +180,10 @@ h1 {
 .adicionar:active {
   transform: scale(1.05);
 }
+
+@media screen and (max-height: 600px){
+
+  ion-footer {
+    display: none;
+  }
+}

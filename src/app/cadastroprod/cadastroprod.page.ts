@@ -59,6 +59,11 @@ export class CadastroprodPage implements OnInit  {
         dia: date.getDate(),
         mes: date.getMonth(),
         ano: date.getFullYear()
+      },
+      estoque:{
+        status: 'verde',
+        quantidadeMinima:5,
+        quantidademaxima:10
       }
     };
 

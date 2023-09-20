@@ -101,7 +101,7 @@
     <div class="box-vender">
 
       <div class="lembretes" *ngFor="let produto of listaProdutos" (click)="vender(produto)">
-        <div class="backgroundvender">
+        <div class="backgroundvender {{produto[0].estoque.status}}">
           <p>{{produto[0].quantidade}}</p>
         </div>
         <div class="precoeproduto">

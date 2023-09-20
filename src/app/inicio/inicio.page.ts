@@ -124,6 +124,7 @@ export class InicioPage implements OnInit {
       produto[0].venda += 1
       produto[0].quantidade -= 1
       this.graficoProdutos()
+      this.atualizaEstatus(produto[1], produto[0])
     })
 
   }
@@ -186,6 +187,41 @@ export class InicioPage implements OnInit {
     if(date.getMonth() != ultimaVenda?.mes){
       console.log('Outro mês');
       this.rendaM = 0
+    }
+  }
+
+  async atualizaEstatus(idProduto:any, Produto:any){
+    const getproduto = await getDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto))
+    const produto = getproduto.data()
+    const estoque = produto?.['estoque']
+    const status = estoque.status    
+
+    if(produto?.['quantidade'] <= estoque?.['quantidadeMinima'] ){
+      updateDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto), {
+        estoque: {
+          status: 'vermelho',
+          quantidadeMinima: estoque?.['quantidadeMinima'],
+          quantidademaxima: estoque?.['quantidademaxima']
+        }
+      }).then(() => {
+        Produto.estoque.status = {
+          status: 'vermelho',
+        }       
+        console.log(Produto.estoque.status);
+        
+      })
+    }
+    if(produto?.['quantidade'] <= estoque?.['quantidadeMinima'] - estoque?.['quantidademaxima'] 
+    && produto?.['quantidade'] >= estoque?.['quantidadeMinima']){
+      updateDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto), {
+        estoque: {
+          status: 'amarelo',
+          quantidadeMinima: estoque?.['quantidadeMinima'],
+          quantidademaxima: estoque?.['quantidademaxima']
+        }
+      }).then(() => {
+        Produto.estoque.status = 'amarelo'
+      })
     }
   }
 

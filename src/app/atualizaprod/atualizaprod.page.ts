@@ -41,6 +41,11 @@ export class AtualizaprodPage implements OnInit {
       precoProduto: this.produto.precoProduto,
       quantidade: this.produto.quantidade,
       validade: this.produto.validade,
+      estoque: {
+        status: 'azul',
+        quantidademaxima: 10,
+        quantidadeMinima: 5
+      }
     })
     .then(() => {
       console.log('Produto alterado');

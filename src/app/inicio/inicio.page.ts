@@ -78,8 +78,6 @@ export class InicioPage implements OnInit {
 
     });
 
-    
-
     this.grafico = 'background: conic-gradient( #1765DB 0%  100%);'
 
   }
@@ -196,7 +194,19 @@ export class InicioPage implements OnInit {
     const estoque = produto?.['estoque']
     const status = estoque.status    
 
-    if(produto?.['quantidade'] <= estoque?.['quantidadeMinima'] ){
+    if(produto?.['quantidade'] >= estoque?.['quantidademaxima']){
+      updateDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto), {
+        estoque: {
+          status: 'azul',
+          quantidadeMinima: estoque?.['quantidadeMinima'],
+          quantidademaxima: estoque?.['quantidademaxima']
+        }
+      }).then(() => {
+        Produto.estoque.status = 'azul'
+      })
+    }
+
+    if(produto?.['quantidade'] <= estoque?.['quantidadeMinima']){
       updateDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto), {
         estoque: {
           status: 'vermelho',
@@ -204,15 +214,12 @@ export class InicioPage implements OnInit {
           quantidademaxima: estoque?.['quantidademaxima']
         }
       }).then(() => {
-        Produto.estoque.status = {
-          status: 'vermelho',
-        }       
-        console.log(Produto.estoque.status);
-        
+        Produto.estoque.status = 'vermelho'
       })
     }
-    if(produto?.['quantidade'] <= estoque?.['quantidadeMinima'] - estoque?.['quantidademaxima'] 
-    && produto?.['quantidade'] >= estoque?.['quantidadeMinima']){
+
+    if(produto?.['quantidade'] > estoque?.['quantidadeMinima'] 
+    && produto?.['quantidade'] <= estoque?.['quantidadeMinima'] + 1){
       updateDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto), {
         estoque: {
           status: 'amarelo',

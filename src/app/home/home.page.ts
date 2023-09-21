@@ -32,7 +32,10 @@ export class HomePage implements OnInit{
 
   async ngOnInit() {
       await onAuthStateChanged(auth, async(user) => {
-        this.router.navigate(['../inicio'])
+        if(user){
+          this.router.navigate(['../inicio'])
+        }
+        
       })
   }
 

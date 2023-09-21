@@ -123,7 +123,36 @@
 
   </div>
 
+
 </ion-content>
+
+<ion-menu side="end" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <div class="a">
+
+        <ion-title>Ajustes</ion-title>
+        <ion-menu-toggle>
+          <ion-icon name="close"></ion-icon>
+        </ion-menu-toggle>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+
+    <div class="ajustes-single">
+      <p>Detalhes da conta</p>
+    </div>
+    <div class="ajustes-single">
+      <p>Privacidade</p>
+    </div>
+    <div class="ajustes-single" style="color: red;">
+      <p>Sair da conta</p>
+    </div>
+
+
+  </ion-content>
+</ion-menu> 
 
 <!-- footer -->
 
@@ -145,6 +174,12 @@
   </ion-tab-button>
   
   <ion-tab-button>
-    <ion-icon name="settings-outline"></ion-icon>
+    <div class="" id="main-content">
+      <ion-buttons>
+        <ion-menu-button>
+          <ion-icon name="settings-outline"></ion-icon>
+        </ion-menu-button>
+      </ion-buttons>
+    </div>
   </ion-tab-button>
 </ion-tab-bar>

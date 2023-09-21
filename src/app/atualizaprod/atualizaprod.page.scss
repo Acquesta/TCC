@@ -180,3 +180,34 @@ section {
   .adicionar:active {
     transform: scale(1.05);
   }
+
+  ion-menu-button ion-icon {
+    color: rgb(66, 66, 66);
+  }
+  
+  // menu ajustes
+  
+  .ajustes-single {
+    height: 45px;
+    width: 100% ;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  .a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .a ion-icon {
+    margin-right: 15px;
+    font-size: 28px;
+    margin-top: 5px;
+    color: rgb(114, 114, 114);
+  }

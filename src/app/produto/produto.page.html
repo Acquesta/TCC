@@ -1,8 +1,25 @@
-<div style="padding: 2rem;">
-  <input type="text" name="" id="">
-  <input type="text" name="" id="">
-  <input type="text" name="" id="">
-  <input type="text" name="" id="">
-  <input type="text" name="" id="">
-  <input type="text" name="" id="">
-</div>
+
+  <div *ngIf="produto">
+      <h1>{{produto.nome}}</h1>
+      <ion-list>
+        <ion-item>
+          <ion-input label="Quantidade" placeholder="{{produto.quantidade}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Valor" placeholder="{{produto.valor}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Text input" placeholder="Enter text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Text input" placeholder="Enter text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Text input" placeholder="Enter text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Text input" placeholder="Enter text"></ion-input>
+        </ion-item>
+      </ion-list>
+  </div>
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnChanges, OnInit } from "@angular/core";
 import auth from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection, doc, updateDoc, getDoc } from "firebase/firestore";
@@ -12,6 +12,13 @@ import { exibirToast } from "src/config/alert";
 })
 export class InicioPage implements OnInit {
   constructor() { }
+
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  }
 
   uid:any;
   user: any;
@@ -125,6 +132,14 @@ export class InicioPage implements OnInit {
       this.atualizaEstatus(produto[1], produto[0])
     })
 
+    const apdateUltimaDia = updateDoc(doc(db, this.uid, this.id), {
+      ultimoDia: {
+        dia: date.getDate(),
+        mes: date.getMonth(),
+        ano: date.getFullYear()
+      }
+    })
+
   }
 
   graficoProdutos(){
@@ -173,18 +188,24 @@ export class InicioPage implements OnInit {
 
     const date = new Date()
 
-    const rendas = await getDoc(doc(db, this.uid, 'produtos', 'produtos', idProduto))
-    const produto = rendas.data()
-    const ultimaVenda = produto?.['ultimaVenda']
+    const rendas = await getDoc(doc(db, this.uid, this.id))
+    const user = rendas.data()
+    const ultimoDia = user?.['ultimoDia']
     
-    if(date.getDate() != ultimaVenda?.dia){
+    if(date.getDate() != ultimoDia?.dia){
       console.log('Dia diferente')
       this.rendaD = 0
+      updateDoc(doc(db, this.uid, this.id), {
+        rendaD: 0
+      })
     }
 
-    if(date.getMonth() != ultimaVenda?.mes){
+    if(date.getMonth() != ultimoDia?.mes){
       console.log('Outro mês');
       this.rendaM = 0
+      updateDoc(doc(db, this.uid, this.id), {
+        rendaM: 0
+      })
     }
   }
 

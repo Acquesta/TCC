@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { Component, OnInit } from '@angular/core';
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import auth from '../../config/firebasedb'
 import { Router } from '@angular/router';
 import { VerifyErroCode } from 'src/config/erros';
@@ -10,7 +10,7 @@ import { exibirToast } from 'src/config/alert';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
 
   constructor(public router: Router) {}
 
@@ -28,6 +28,12 @@ export class HomePage {
       const erroMensagm = VerifyErroCode(errorCode)
       exibirToast(erroMensagm, 3000, 'danger', 'top')
     })
+  }
+
+  async ngOnInit() {
+      await onAuthStateChanged(auth, async(user) => {
+        this.router.navigate(['../inicio'])
+      })
   }
 
 }

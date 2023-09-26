@@ -64,7 +64,9 @@ export class CadastroprodPage implements OnInit  {
         status: 'azul',
         quantidadeMinima:5,
         quantidademaxima:10
-      }
+      },
+      descricao: '',
+      precoProducao: 0
     };
 
     try {

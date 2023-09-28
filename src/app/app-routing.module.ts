@@ -43,6 +43,14 @@ const routes: Routes = [
     path: 'estatisticas',
     loadChildren: () => import('./estatisticas/estatisticas.module').then( m => m.EstatisticasPageModule)
   },
+  {
+    path: 'criameta',
+    loadChildren: () => import('./criameta/criameta.module').then( m => m.CriametaPageModule)
+  },
+  {
+    path: 'metas',
+    loadChildren: () => import('./metas/metas.module').then( m => m.MetasPageModule)
+  },
 ];
 
 @NgModule({

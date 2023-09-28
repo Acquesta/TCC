@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { exibirToast } from 'src/config/alert';
 import { db } from 'src/config/firebasedb';
@@ -12,7 +12,7 @@ import { db } from 'src/config/firebasedb';
 })
 export class ProdutoPage implements OnInit {
 
-  constructor(private rotaAtiva: ActivatedRoute) { }
+  constructor(private rotaAtiva: ActivatedRoute, public router: Router) { }
 
   uid:any;
   idp:any;
@@ -21,8 +21,8 @@ export class ProdutoPage implements OnInit {
   quantidade:any;
   preco:any;
   validade:any;
-  descricao:any;
-  precoProducao:any = '';
+  descricao:any = '';
+  precoProducao:any;
 
   listaItens: any = [];
   itemNome: any;
@@ -33,12 +33,13 @@ export class ProdutoPage implements OnInit {
     this.idp = this.rotaAtiva.snapshot.params['idp']
 
     const achaproduto = await getDoc(doc(db, this.uid, 'produtos', 'produtos', this.idp))
-    console.log(achaproduto.data())
     this.produto = achaproduto.data()
+    console.log(this.produto)
 
     this.quantidade = this.produto.quantidade
     this.preco = this.produto.precoProduto
     this.validade = this.produto.validade
+    this.precoProducao = this.produto.precoProducao
   }
 
 
@@ -70,11 +71,20 @@ export class ProdutoPage implements OnInit {
   ];
 
   adicionaItem(inputs:any, ){
-    this.listaItens.push([inputs[0], inputs[1]])
+    this.listaItens.push(
+      {nome: inputs[0], preco: inputs[1]}
+    )
     console.log(this.listaItens);
+    this.precoProducao = this.produto.precoProducao;
+
+    this.listaItens.forEach((item:any) => {
+      const precoItem = parseInt(item.preco)
+      this.precoProducao += precoItem   
+    })
   }
 
   salvarInformacoes(){
+    
     const autaliza = updateDoc(doc(db, this.uid, 'produtos', 'produtos', this.idp), {
       quantidade: this.quantidade,
       precoProducao: this.precoProducao,
@@ -84,6 +94,7 @@ export class ProdutoPage implements OnInit {
       itens: this.listaItens
     }).then(() => {
       exibirToast('Produto salvo', 3000, 'success', 'top')
+      this.router.navigate(['../produtos/' + this.uid])
     }).catch(() => {
       exibirToast('Erro ao cadastrar o produto', 3000, 'danger', 'top')
     })

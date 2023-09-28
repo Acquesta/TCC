@@ -66,7 +66,8 @@ export class CadastroprodPage implements OnInit  {
         quantidademaxima:10
       },
       descricao: '',
-      precoProducao: 0
+      precoProducao: 0,
+      itens: []
     };
 
     try {

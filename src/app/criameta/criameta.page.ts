@@ -15,6 +15,8 @@ export class CriametaPage implements OnInit {
   constructor(public router: Router) { }
 
   uid:any;
+  user:any;
+  rendaAtual:any;
 
   tipoMeta: any;
 
@@ -30,6 +32,7 @@ export class CriametaPage implements OnInit {
   produto:any = '';
   produtoQuantidade:any = '';
   data:any = 'sem data pra terminar';
+  infos:any;
 
   // puxa o id do usuario
   async ngOnInit() {
@@ -38,6 +41,14 @@ export class CriametaPage implements OnInit {
         
         this.uid = user.uid;
         console.log('id do usuario :' + this.uid);
+
+        const getInfoUser = await getDocs(collection(db, this.uid))
+        getInfoUser.forEach((doc) => {
+          this.user = doc.data()
+
+          this.rendaAtual = this.user.rendaS
+          // console.log(doc.data())
+        })
 
       }
     })
@@ -53,6 +64,8 @@ export class CriametaPage implements OnInit {
       this.metaReais = false
       this.metaDias = true;
       this.metaProduto = true;
+
+      this.infos = this.rendaAtual
     } else if(this.tipoMeta == 'dias'){
       this.metaDias = false
       this.metaReais = true
@@ -92,7 +105,8 @@ export class CriametaPage implements OnInit {
       },
       dataConclusao: dataSeparada,
       porcentagem: '0%',
-      status: 'não concluído'
+      status: 'não concluído',
+      infos: this.infos
     }
     
     // adiciona a meta no banco de dados
@@ -100,7 +114,7 @@ export class CriametaPage implements OnInit {
       addDoc(collection(db, this.uid, 'metas', 'metas'), meta).then(() => {
         console.log('Meta criada')
         exibirToast('Meta criada', 3000, 'success', 'top')
-        this.router.navigate(['../metas'])
+        this.router.navigate(['../metas/' + this.uid])
       })
     }
     catch (e) {

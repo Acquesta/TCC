@@ -7,7 +7,7 @@
 
     <div class="info-box">
       <h2>R${{rendaS}}</h2>
-      <p>Semanal</p>
+      <p>Total</p>
     </div>
 
 
@@ -158,7 +158,7 @@
 
 <ion-tab-bar slot="bottom">
   <ion-tab-button>
-    <ion-icon name="receipt-outline" routerLink="../metas"></ion-icon>
+    <ion-icon name="receipt-outline" [routerLink]="'../metas/' + uid"></ion-icon>
   </ion-tab-button>
   
   <ion-tab-button>

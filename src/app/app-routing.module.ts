@@ -48,7 +48,7 @@ const routes: Routes = [
     loadChildren: () => import('./criameta/criameta.module').then( m => m.CriametaPageModule)
   },
   {
-    path: 'metas',
+    path: 'metas/:uid',
     loadChildren: () => import('./metas/metas.module').then( m => m.MetasPageModule)
   },
 ];

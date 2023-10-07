@@ -34,6 +34,9 @@ export class HomePage implements OnInit{
       await onAuthStateChanged(auth, async(user) => {
         if(user){
           this.router.navigate(['../inicio'])
+        }else{
+          console.log('Nenhum user encontrado');
+          
         }
         
       })

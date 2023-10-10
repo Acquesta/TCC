@@ -131,11 +131,11 @@
 
 <ion-tab-bar slot="bottom">
   <ion-tab-button>
-    <ion-icon name="receipt-outline"></ion-icon>
+    <ion-icon name="receipt-outline" (click)="paginaMetas()"></ion-icon>
   </ion-tab-button>
 
   <ion-tab-button>
-    <ion-icon name="stats-chart-outline" routerLink="../estatisticas"></ion-icon>
+    <ion-icon name="stats-chart-outline" (click)="paginaEstatisticas()"></ion-icon>
   </ion-tab-button>
 
   <ion-tab-button>

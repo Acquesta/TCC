@@ -36,6 +36,10 @@ export class MetasPage implements OnInit {
     this.router.navigate(['../criameta'])
   }
 
+  paginaInicio(){
+    this.router.navigate(['../inicio'])
+  }
+
   atualizaMeta(){
     // const comparaMeta = 
   }

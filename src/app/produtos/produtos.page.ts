@@ -55,4 +55,12 @@ export class ProdutosPage implements OnInit {
     this.router.navigate(['../produto/' + this.uid + '/' + produto[1] ])
   }
 
+  paginaMetas(){
+    this.router.navigate(['../metas/' + this.uid])
+  }
+
+  paginaEstatisticas(){
+    this.router.navigate(['../estatisticas'])
+  }
+
 }

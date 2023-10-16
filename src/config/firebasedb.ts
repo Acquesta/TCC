@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -12,6 +13,7 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBbY3mR_FrGR70807_x2GQ21UHyu3WqQ5I",
   authDomain: "gestechdb.firebaseapp.com",
+  databaseURL: "https://gestechdb-default-rtdb.firebaseio.com",
   projectId: "gestechdb",
   storageBucket: "gestechdb.appspot.com",
   messagingSenderId: "299154456680",
@@ -23,6 +25,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const database = getDatabase(app)
 export const db = getFirestore(app);
 
 export default auth

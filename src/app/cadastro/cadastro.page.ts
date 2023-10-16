@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Router } from '@angular/router';
-import auth from 'src/config/firebasedb';
+import auth, { database } from 'src/config/firebasedb';
 import { exibirToast } from 'src/config/alert';
 import { VerifyErroCode } from 'src/config/erros';
 import { db } from '../../config/firebasedb';
 import { collection, addDoc } from "firebase/firestore";
+import { ref, set } from 'firebase/database';
 
 @Component({
   selector: 'app-cadastro',
@@ -63,6 +64,12 @@ export class CadastroPage implements OnInit {
         rendaD: '0',
         rendaTotal: 0
       });
+      const addDatabase = await set(ref(database, 'users/' + uid), {
+        name: nome
+      })
+      .then(() => {
+        console.log('Documento escrito')
+      })
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);

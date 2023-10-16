@@ -1,9 +1,10 @@
 import { Component, OnChanges, OnInit } from "@angular/core";
-import auth from "src/config/firebasedb";
+import auth, { database } from "src/config/firebasedb";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "src/config/firebasedb";
 import { exibirToast } from "src/config/alert";
+import { ref, set } from "firebase/database";
 
 @Component({
   selector: "app-inicio",
@@ -138,6 +139,14 @@ export class InicioPage implements OnInit {
         mes: date.getMonth(),
         ano: date.getFullYear()
       }
+    })
+
+    const gravarVenda = await set(ref(database, 'users/' + this.uid + '/vendas/' ), {
+      produto: produto[0].nome,
+      preco: produto[0].precoProduto,
+      dia: date.getDate(),
+      mes: date.getMonth(),
+      ano: date.getFullYear()
     })
 
   }

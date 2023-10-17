@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "src/config/firebasedb";
 import { exibirToast } from "src/config/alert";
-import { ref, set } from "firebase/database";
+import { push, ref, set } from "firebase/database";
 
 @Component({
   selector: "app-inicio",
@@ -92,6 +92,10 @@ export class InicioPage implements OnInit {
 
   async vender(produto:any){
 
+    const id = produto[1]
+    const Ref = ref(database, 'users/' + this.uid + '/vendas/' + produto[1] )
+    const Push = push(Ref)
+
     await this.rendas(produto[1])
 
     // Pega o preço do produto
@@ -141,7 +145,7 @@ export class InicioPage implements OnInit {
       }
     })
 
-    const gravarVenda = await set(ref(database, 'users/' + this.uid + '/vendas/' ), {
+    const gravarVenda = await set(Push, {
       produto: produto[0].nome,
       preco: produto[0].precoProduto,
       dia: date.getDate(),
